@@ -23,3 +23,14 @@ func OpenDriver(dsn string, drv driver.Driver, lg Logger, opt ...Option) *sql.DB
 
 	return sql.OpenDB(conn)
 }
+
+func NewLogger(lg Logger, opt ...Option) *logger {
+	opts := &options{}
+	setDefaultOptions(opts)
+
+	for _, o := range opt {
+		o(opts)
+	}
+
+	return &logger{logger: lg, opt: opts}
+}
